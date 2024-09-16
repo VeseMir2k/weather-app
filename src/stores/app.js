@@ -19,7 +19,7 @@ export const useWeatherStore = defineStore("weather", {
       try {
         const apiKey = import.meta.env.VITE_API_URL_OPENWEATHER;
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric`
+          `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${apiKey}&units=metric&lang=pl`
         );
         this.weatherData = response.data;
       } catch (error) {
@@ -34,7 +34,7 @@ export const useWeatherStore = defineStore("weather", {
       try {
         const apiKey = import.meta.env.VITE_API_URL_OPENWEATHER;
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric`
+          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=pl`
         );
         this.forecastWeatherData = response.data;
       } catch (error) {
