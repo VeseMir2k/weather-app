@@ -1,20 +1,18 @@
 <template>
-  <div class="map-container">
-    <GoogleMap
-      class="map-container__map"
-      :api-key="apiMap"
-      :center="city"
-      :zoom="10"
-      :styles="customsMap"
-      :disable-default-ui="true"
-      :draggable="false"
-      :scrollwheel="false"
-      :disable-double-click-zoom="true"
-      :gesture-handling="none"
-    >
-      <Marker :options="{ position: city }" />
-    </GoogleMap>
-  </div>
+  <GoogleMap
+    class="map"
+    :api-key="apiMap"
+    :center="city"
+    :zoom="10"
+    :styles="customsMap"
+    :disable-default-ui="true"
+    :draggable="false"
+    :scrollwheel="false"
+    :disable-double-click-zoom="true"
+    :gesture-handling="none"
+  >
+    <Marker :options="{ position: city }" />
+  </GoogleMap>
 </template>
 
 <script setup>
@@ -203,22 +201,8 @@ const customsMap = [
 </script>
 
 <style lang="scss">
-.map-container {
+.map {
   width: 100%;
-  height: 175px;
-  position: relative;
-  &::after {
-    content: "";
-    position: absolute;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    height: 25px;
-    background-color: white;
-  }
-  &__map {
-    width: 100%;
-    height: 100%;
-  }
+  height: 150px;
 }
 </style>

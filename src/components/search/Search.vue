@@ -1,5 +1,5 @@
 <template>
-  <v-card class="mx-auto" color="surface-light" width="400">
+  <v-card class="mx-auto" color="surface-light">
     <v-card-text>
       <v-text-field
         append-inner-icon="mdi-magnify"

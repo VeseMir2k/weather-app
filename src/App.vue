@@ -1,14 +1,20 @@
 <template>
   <v-container>
-    <Search :getWeather="getWeather" v-model="city" />
-    <Weather
-      :weatherData="weatherData"
-      :loading="loading"
-      :error="error"
-      :forecastWeatherData="forecastWeatherData"
-      :forecastLoading="forecastLoading"
-      :forecastError="forecastError"
-    />
+    <v-row justify="center">
+      <v-col cols="10">
+        <Search :getWeather="getWeather" v-model="city" />
+      </v-col>
+    </v-row>
+    <v-row justify="center">
+      <v-col cols="10">
+        <Weather
+          :weatherData="weatherData"
+          :loading="loading"
+          :error="error"
+          :forecastWeatherData="forecastWeatherData"
+          :forecastLoading="forecastLoading"
+          :forecastError="forecastError" /></v-col
+    ></v-row>
   </v-container>
 </template>
 
@@ -43,13 +49,3 @@ const forecastWeatherData = computed(() => weatherStore.forecastWeatherData);
 const forecastLoading = computed(() => weatherStore.forecastLoading);
 const forecastError = computed(() => weatherStore.forecastError);
 </script>
-
-<style>
-.container {
-  width: 600px;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  align-items: center;
-}
-</style>
