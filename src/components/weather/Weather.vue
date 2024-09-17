@@ -1,10 +1,11 @@
 <template>
   <v-card class="vcard text-white">
     <v-container>
+      <Header v-if="weatherData && !loading" />
       <Loader v-if="loading" />
       <Error :error="error" v-if="error" />
       <Map v-if="weatherData && !loading" />
-      <WeatherInfo v-if="weatherData && !loading" />
+      <Main v-if="weatherData && !loading" />
       <Error :forecastError="forecastError" v-if="forecastError" />
     </v-container>
   </v-card>
@@ -12,10 +13,11 @@
 
 <script setup>
 // ~ imports
+import Header from "./header/Header.vue";
 import Loader from "./Loader.vue";
 import Error from "./Error.vue";
 import Map from "./Map.vue";
-import WeatherInfo from "./weatherInfo/WeatherInfo.vue";
+import Main from "./main/Main.vue";
 
 // ~ props
 const props = defineProps({
@@ -38,10 +40,6 @@ const props = defineProps({
     type: String,
   },
 });
-
-const showData = () => {
-  console.log(props.forecastWeatherData.list[2]);
-};
 </script>
 
 <style scoped lang="scss">
