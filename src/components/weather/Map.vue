@@ -1,18 +1,21 @@
 <template>
-  <GoogleMap
-    class="map"
-    :api-key="apiMap"
-    :center="city"
-    :zoom="10"
-    :styles="customsMap"
-    :disable-default-ui="true"
-    :draggable="false"
-    :scrollwheel="false"
-    :disable-double-click-zoom="true"
-    :gesture-handling="none"
-  >
-    <Marker :options="{ position: city }" />
-  </GoogleMap>
+  <v-row>
+    <v-col>
+      <GoogleMap
+        class="map"
+        :api-key="apiMap"
+        :center="city"
+        :zoom="10"
+        :styles="customsMap"
+        :disable-default-ui="true"
+        :draggable="false"
+        :scrollwheel="false"
+        :disable-double-click-zoom="true"
+        :gesture-handling="none"
+      >
+        <Marker :options="{ position: city }" /> </GoogleMap
+    ></v-col>
+  </v-row>
 </template>
 
 <script setup>
@@ -204,5 +207,7 @@ const customsMap = [
 .map {
   width: 100%;
   height: 150px;
+  border-radius: 16px;
+  overflow: hidden;
 }
 </style>
