@@ -206,7 +206,7 @@ const customsMap = [
 <style lang="scss">
 .map {
   width: 100%;
-  height: 150px;
+  height: 200px;
   border-radius: 16px;
   overflow: hidden;
 }

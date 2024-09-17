@@ -1,5 +1,5 @@
 <template>
-  <v-container>
+  <v-container width="900px">
     <v-row justify="center">
       <v-col cols="10">
         <Search :getWeather="getWeather" v-model="city" />

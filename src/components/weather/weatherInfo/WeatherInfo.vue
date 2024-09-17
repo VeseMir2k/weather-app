@@ -15,6 +15,8 @@
         <Humidity :weatherData="weatherData" />
         <FeelsLike :weatherData="weatherData" />
       </div>
+      <Visibility :weatherData="weatherData" />
+      <Pressure :weatherData="weatherData" />
     </v-col>
     <v-col class="d-flex justify-center">
       <Temperature :weatherData="weatherData" />
@@ -32,15 +34,11 @@ import IconWeather from "./IconWeather.vue";
 import SunRiseSet from "./SunRiseSet.vue";
 import Humidity from "./Humidity.vue";
 import FeelsLike from "./FeelsLike.vue";
+import Visibility from "./Visibility.vue";
+import Pressure from "./Pressure.vue";
 import Temperature from "./Temperature.vue";
 
 // ~ store
 const weatherStore = useWeatherStore();
 const weatherData = weatherStore.weatherData;
 </script>
-
-<style lang="scss">
-.weather-info {
-  padding: 0 20px 0 20px;
-}
-</style>
