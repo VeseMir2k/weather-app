@@ -1,5 +1,5 @@
 <template>
-  <h2>{{ clock }}</h2>
+  <p class="text-h4 font-weight-bold">{{ clock }}</p>
 </template>
 
 <script setup>

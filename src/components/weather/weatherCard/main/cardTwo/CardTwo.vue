@@ -1,5 +1,5 @@
 <template>
-  <v-col class="d-flex ga-5 align-center flex-column">
+  <v-col class="d-flex justify-center align-center">
     <Temperature :weather-data="weatherData" />
   </v-col>
 </template>
