@@ -23,7 +23,7 @@
 import { GoogleMap, Marker } from "vue3-google-map";
 import { useWeatherStore } from "@/stores/app";
 
-// ~ store
+// ~ stores
 const weatherStore = useWeatherStore();
 const weatherData = weatherStore.weatherData;
 
