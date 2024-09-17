@@ -1,6 +1,8 @@
 <template>
   <v-row>
-    <v-col> </v-col>
+    <v-col class="d-flex align-center">
+      <Day />
+    </v-col>
     <v-col class="d-flex flex-column justify-center align-center">
       <Date />
       <Clock />
@@ -14,6 +16,7 @@
 <script setup>
 // ~ imports
 import { useWeatherStore } from "@/stores/app";
+import Day from "./Day.vue";
 import Date from "./Date.vue";
 import Clock from "./Clock.vue";
 import Coord from "./Coord.vue";
