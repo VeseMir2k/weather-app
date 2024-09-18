@@ -1,15 +1,14 @@
-// src/stores/weatherStore.js
 import { defineStore } from "pinia";
 import axios from "axios";
 
 export const useWeatherStore = defineStore("weather", {
   state: () => ({
+    citiesData: null,
+    citiesLoading: false,
+    citiesError: null,
     weatherData: null,
     loading: false,
     error: null,
-    forecastWeatherData: null,
-    forecastLoading: false,
-    forecastError: null,
   }),
 
   actions: {
@@ -28,19 +27,20 @@ export const useWeatherStore = defineStore("weather", {
         this.loading = false;
       }
     },
-    async fetchForecastWeather(city) {
-      this.forecastLoading = true;
-      this.forecastError = null;
+
+    async fetchPlace(city) {
       try {
-        const apiKey = import.meta.env.VITE_API_URL_OPENWEATHER;
+        const apiKey = import.meta.env.VITE_API_URL_MAPA_GOOGLE;
         const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/forecast?q=${city}&appid=${apiKey}&units=metric&lang=pl`
+          `https://maps.googleapis.com/maps/api/place/autocomplete/json?input=${city}&types=(cities)&key=${apiKey}`
         );
-        this.forecastWeatherData = response.data;
+        this.citiesData = response.data;
+        console.log(response.data);
       } catch (error) {
-        this.forecastError = "Nie udało się pobrać danych o pogodzie";
+        this.citiesError = "Nie udało się pobrać danych";
+        console.log(error);
       } finally {
-        this.forecastLoading = false;
+        this.loading = false;
       }
     },
   },

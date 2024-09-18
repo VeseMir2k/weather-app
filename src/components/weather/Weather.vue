@@ -21,14 +21,5 @@ const props = defineProps({
   error: {
     type: String,
   },
-  forecastWeatherData: {
-    type: Object,
-  },
-  forecastLoading: {
-    type: Boolean,
-  },
-  forecastError: {
-    type: String,
-  },
 });
 </script>

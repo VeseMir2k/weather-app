@@ -10,10 +10,7 @@
         <Weather
           :weatherData="weatherData"
           :loading="loading"
-          :error="error"
-          :forecastWeatherData="forecastWeatherData"
-          :forecastLoading="forecastLoading"
-          :forecastError="forecastError" /></v-col
+          :error="error" /></v-col
     ></v-row>
   </v-container>
 </template>
@@ -34,9 +31,8 @@ const city = ref("wieluń");
 const getWeather = () => {
   if (city.value) {
     weatherStore.weatherData = null;
-    weatherStore.forecastWeatherData = null;
     weatherStore.fetchWeather(city.value);
-    weatherStore.fetchForecastWeather(city.value);
+    weatherStore.fetchPlace(city.value);
   }
 };
 
@@ -44,8 +40,4 @@ const getWeather = () => {
 const weatherData = computed(() => weatherStore.weatherData);
 const loading = computed(() => weatherStore.loading);
 const error = computed(() => weatherStore.error);
-
-const forecastWeatherData = computed(() => weatherStore.forecastWeatherData);
-const forecastLoading = computed(() => weatherStore.forecastLoading);
-const forecastError = computed(() => weatherStore.forecastError);
 </script>

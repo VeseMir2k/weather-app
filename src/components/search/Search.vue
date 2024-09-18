@@ -12,6 +12,7 @@
         v-model="inputValue"
         @click:append-inner="handleSearch"
         ref="searchInputRef"
+        bg-color="rgba(255, 255, 255, 0.4)"
       ></v-text-field>
     </v-card-text>
   </v-card>
