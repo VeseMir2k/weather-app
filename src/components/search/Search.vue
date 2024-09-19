@@ -1,46 +1,39 @@
 <template>
   <v-card class="mx-auto vcard">
     <v-card-text>
-      <v-text-field
-        append-inner-icon="mdi-magnify"
-        density="compact"
-        label="Wpisz nazwę miasta"
-        variant="solo"
-        hide-details
-        single-line
-        :value="modelValue"
-        v-model="inputValue"
-        @click:append-inner="handleSearch"
-        ref="searchInputRef"
-        bg-color="rgba(255, 255, 255, 0.4)"
-      ></v-text-field>
+      <div class="input-search-container">
+        <input
+          class="input-search-container__input"
+          placeholder="Wpisz nazwę miasta"
+          style="background-color: transparent; border: none"
+          type="text"
+        />
+        <span class="input-search-container__button">
+          <v-icon icon="mdi-magnify" size="large"></v-icon>
+        </span>
+      </div>
     </v-card-text>
   </v-card>
 </template>
 
 <script setup>
-// ~ inputs
 import { onMounted, onUnmounted, ref } from "vue";
+import { useWeatherStore } from "@/stores/app";
 
-// ~ ref
+// ~ stores
+const weatherStore = useWeatherStore();
+
+// ~ refs
 const searchInputRef = ref(null);
-const inputValue = ref("");
+const searchInputValue = ref("");
+const city = ref("");
 
 // ~ props
 const props = defineProps({
-  modelValue: {
-    type: String,
-  },
   getWeather: {
     type: Function,
     required: true,
   },
-});
-
-// ~ emits
-const emit = defineEmits(["update:modelValue"]);
-watch(inputValue, (newValue) => {
-  emit("update:modelValue", newValue);
 });
 
 // ~ handle search
@@ -56,7 +49,33 @@ const handleEnter = (event) => {
   }
 };
 
+// ~ initAutocomplete
+const initAutocomplete = () => {
+  const inputElement = document.querySelector(".search-input"); // Znajdź wewnętrzny input generowany przez Vuetify
+  if (!inputElement) {
+    console.error("Nie znaleziono elementu input");
+    return;
+  }
+
+  const autocomplete = new google.maps.places.Autocomplete(inputElement, {
+    types: ["(cities)"], // Ograniczamy wyniki do miast
+  });
+
+  autocomplete.addListener("place_changed", () => {
+    const place = autocomplete.getPlace();
+    if (place.geometry) {
+      weatherStore.placeData = place;
+      city.value = place.formatted_address; // Pobierz pełny adres
+      searchInputValue.value = city.value; // Ustaw wybraną nazwę miasta w polu tekstowym
+    } else {
+      alert("Nie wybrano poprawnego miejsca.");
+    }
+  });
+};
+
+// Inicjalizacja Google Places Autocomplete
 onMounted(() => {
+  initAutocomplete();
   document.addEventListener("keydown", handleEnter);
 });
 
@@ -72,5 +91,22 @@ onUnmounted(() => {
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
   backdrop-filter: blur(5px);
   -webkit-backdrop-filter: blur(5px);
+}
+
+.input-search-container {
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px;
+  position: relative;
+  &__input {
+    width: 100%;
+    padding: 8px;
+    font-size: 16px;
+    border-radius: inherit;
+  }
+  &__button {
+    position: absolute;
+    top: 0;
+    right: 0;
+  }
 }
 </style>

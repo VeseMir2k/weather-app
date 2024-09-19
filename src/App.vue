@@ -26,14 +26,14 @@ import Weather from "./components/weather/Weather.vue";
 const weatherStore = useWeatherStore();
 
 // ~ weather data
-const city = ref("wieluń");
+const city = ref("");
 
 const getWeather = () => {
-  if (city.value) {
-    weatherStore.weatherData = null;
-    weatherStore.fetchWeather(city.value);
-    weatherStore.fetchPlace(city.value);
-  }
+  weatherStore.weatherData = null;
+  weatherStore.fetchWeather(
+    weatherStore.placeData.geometry.location.lat(),
+    weatherStore.placeData.geometry.location.lng()
+  );
 };
 
 // ~ computed
