@@ -41,7 +41,6 @@ const handleEnter = (event) => {
 
 // ~ initAutocomplete
 onMounted(() => {
-  initAutocomplete("search-input__input", weatherStore);
   document.addEventListener("keydown", handleEnter);
 });
 
