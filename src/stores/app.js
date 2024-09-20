@@ -1,5 +1,5 @@
 import { defineStore } from "pinia";
-import axios from "axios";
+import { fetchWeatherData } from "@/use/useWeather"; // Import funkcji z folderu 'use'
 
 export const useWeatherStore = defineStore("weather", {
   state: () => ({
@@ -14,13 +14,9 @@ export const useWeatherStore = defineStore("weather", {
       this.loading = true;
       this.error = null;
       try {
-        const apiKey = import.meta.env.VITE_API_URL_OPENWEATHER;
-        const response = await axios.get(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lng}&appid=${apiKey}`
-        );
-        this.weatherData = response.data;
+        this.weatherData = await fetchWeatherData(lat, lng);
       } catch (error) {
-        this.error = "Nie udało się pobrać danych o pogodzie";
+        this.error = error.message;
       } finally {
         this.loading = false;
       }
