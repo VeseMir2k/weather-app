@@ -8,12 +8,7 @@
 
 <script setup>
 import { onMounted, onUnmounted, ref } from "vue";
-import { initAutocomplete } from "@/use/useAutocomplete";
-import { useWeatherStore } from "@/stores/app";
 import Input from "./Input.vue";
-
-// ~ stores
-const weatherStore = useWeatherStore();
 
 // ~ refs
 const searchInputRef = ref(null);

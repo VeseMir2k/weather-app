@@ -1,6 +1,6 @@
 <template>
   <div class="search-input">
-    <input class="search-input__input" type="text" />
+    <input id="autocomplete" class="search-input__input" type="text" />
     <span class="search-input__button"
       ><v-icon icon="mdi-magnify" size="x-large"></v-icon
     ></span>
