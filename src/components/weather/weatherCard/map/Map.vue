@@ -10,6 +10,7 @@
 // ~ imports
 import { useWeatherStore } from "@/stores/app";
 import { useGoogleMaps } from "@/use/useGoogleMap";
+import { styles } from "./stylesMap";
 
 // ~ stores
 const weatherStore = useWeatherStore();
@@ -23,6 +24,9 @@ const coordLng = weatherData.coord.lon;
 const optionsMap = {
   center: { lat: coordLat, lng: coordLng },
   zoom: 12,
+  disableDefaultUI: true,
+  draggable: false,
+  styles,
 };
 
 const optionsMarker = {

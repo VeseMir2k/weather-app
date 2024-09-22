@@ -1,13 +1,40 @@
 <template>
   <div class="search-input">
-    <input id="autocomplete" class="search-input__input" type="text" />
-    <span class="search-input__button"
-      ><v-icon icon="mdi-magnify" size="x-large"></v-icon
-    ></span>
+    <input
+      id="autocomplete"
+      class="search-input__input"
+      type="text"
+      v-model="inputValue"
+    />
+    <span @click="handleButton" class="search-input__button">
+      <v-icon icon="mdi-magnify" size="x-large"></v-icon>
+    </span>
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+// ~ imports
+import { ref } from "vue";
+import { useWeatherStore } from "@/stores/app";
+
+// ~ store
+const weatherStore = useWeatherStore();
+
+// ~ refs
+const inputValue = ref("");
+
+// ~ props
+const props = defineProps({
+  getWeather: {
+    type: Function,
+  },
+});
+
+const handleButton = () => {
+  weatherStore.searchInputValue = inputValue.value;
+  props.getWeather();
+};
+</script>
 
 <style scoped lang="scss">
 .search-input {

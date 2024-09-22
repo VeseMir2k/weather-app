@@ -10,7 +10,6 @@ export const useGoogleMaps = (
 ) => {
   // ~ refs
   const map = ref(null);
-  const marker = ref(null);
 
   // ~ initMap
   const initMap = () => {
@@ -30,9 +29,9 @@ export const useGoogleMaps = (
         });
 
         const marker = new google.maps.Marker({
-          position: optionsMarker.position || { lat: 0, lng: 0 }, // Ustawienie pozycji znacznika
-          map: map.value, // Przypisanie mapy do znacznika
-          title: optionsMarker.title || "Znacznik", // Tytuł dla znacznika
+          position: optionsMarker.position || { lat: 0, lng: 0 },
+          map: map.value,
+          title: optionsMarker.title || "Znacznik",
         });
       })
       .catch((error) => {
@@ -48,7 +47,6 @@ export const useGoogleMaps = (
   // ~ onUnmounted
   onUnmounted(() => {
     map.value = null;
-    marker.value = null;
   });
 
   return { map };

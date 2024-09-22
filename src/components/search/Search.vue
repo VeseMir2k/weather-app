@@ -1,17 +1,14 @@
 <template>
   <v-card class="mx-auto vcard">
     <v-card-text>
-      <Input />
+      <Input :get-weather="getWeather" />
     </v-card-text>
   </v-card>
 </template>
 
 <script setup>
-import { onMounted, onUnmounted, ref } from "vue";
+// ~ imports
 import Input from "./Input.vue";
-
-// ~ refs
-const searchInputRef = ref(null);
 
 // ~ props
 const props = defineProps({
@@ -19,28 +16,6 @@ const props = defineProps({
     type: Function,
     required: true,
   },
-});
-
-// ~ handle search
-const handleSearch = () => {
-  props.getWeather();
-  searchInputRef.value.blur();
-};
-
-// ~ handle eventListener
-const handleEnter = (event) => {
-  if (event.key === "Enter") {
-    handleSearch();
-  }
-};
-
-// ~ initAutocomplete
-onMounted(() => {
-  document.addEventListener("keydown", handleEnter);
-});
-
-onUnmounted(() => {
-  document.removeEventListener("keydown", handleEnter);
 });
 </script>
 

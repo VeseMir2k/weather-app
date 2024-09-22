@@ -7,6 +7,7 @@ export const useWeatherStore = defineStore("weather", {
     loading: false,
     error: null,
     placeData: null,
+    searchInputValue: "",
   }),
 
   actions: {
