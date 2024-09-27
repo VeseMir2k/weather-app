@@ -1,6 +1,9 @@
 <template>
   <v-container width="900px">
     <v-row justify="center">
+      <v-col> <h1 class="text-center">WEATHER APP</h1> </v-col>
+    </v-row>
+    <v-row justify="center">
       <v-col cols="10">
         <Search />
       </v-col>
