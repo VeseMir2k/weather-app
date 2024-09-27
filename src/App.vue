@@ -2,7 +2,7 @@
   <v-container width="900px">
     <v-row justify="center">
       <v-col cols="10">
-        <Search :getWeather="getWeather" />
+        <Search />
       </v-col>
     </v-row>
     <v-row justify="center">
@@ -30,18 +30,6 @@ const weatherStore = useWeatherStore();
 useGoogleAutocomplete(weatherStore, "autocomplete", {
   types: ["locality"],
 });
-
-// ~ getWeather
-const getWeather = () => {
-  if (weatherStore.placeData.geometry) {
-    weatherStore.fetchWeatherCoord(
-      weatherStore.placeData.geometry.location.lat(),
-      weatherStore.placeData.geometry.location.lng()
-    );
-  } else {
-    weatherStore.fetchWeatherCity(weatherStore.searchInputValue);
-  }
-};
 
 // ~ computed
 const weatherData = computed(() => weatherStore.weatherData);

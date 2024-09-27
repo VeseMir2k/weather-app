@@ -1,7 +1,7 @@
 <template>
   <LoaderCard v-if="loading" />
   <ErrorCard :error="error" v-if="error" />
-  <WeatherCard v-if="weatherData && !loading" />
+  <WeatherCard v-if="weatherData && !loading && !error" />
 </template>
 
 <script setup>

@@ -5,8 +5,9 @@
       class="search-input__input"
       type="text"
       v-model="inputValue"
+      @keydown.enter.prevent
     />
-    <span @click="handleButton" class="search-input__button">
+    <span @click="getWeather" class="search-input__button">
       <v-icon icon="mdi-magnify" size="x-large"></v-icon>
     </span>
   </div>
@@ -23,16 +24,22 @@ const weatherStore = useWeatherStore();
 // ~ refs
 const inputValue = ref("");
 
-// ~ props
-const props = defineProps({
-  getWeather: {
-    type: Function,
-  },
-});
+// ~ getWeather
+const getWeather = () => {
+  if (weatherStore.placeData) {
+    console.log("Coord");
 
-const handleButton = () => {
-  weatherStore.searchInputValue = inputValue.value;
-  props.getWeather();
+    console.log(inputValue.value);
+    weatherStore.fetchWeatherCoord(
+      weatherStore.placeData.geometry.location.lat(),
+      weatherStore.placeData.geometry.location.lng()
+    );
+  } else {
+    console.log("City");
+
+    console.log(inputValue.value);
+    weatherStore.fetchWeatherCity(inputValue.value);
+  }
 };
 </script>
 

@@ -1,7 +1,7 @@
 <template>
   <v-card class="mx-auto vcard">
     <v-card-text>
-      <Input :get-weather="getWeather" />
+      <Input />
     </v-card-text>
   </v-card>
 </template>
@@ -9,14 +9,6 @@
 <script setup>
 // ~ imports
 import Input from "./Input.vue";
-
-// ~ props
-const props = defineProps({
-  getWeather: {
-    type: Function,
-    required: true,
-  },
-});
 </script>
 
 <style scoped lang="scss">
