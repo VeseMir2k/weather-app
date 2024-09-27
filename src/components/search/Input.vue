@@ -48,6 +48,7 @@ const getWeather = async () => {
     }
 
     inputRef.value.blur();
+    inputValue.value = "";
   } catch (error) {
     console.error("Failed to fetch weather data:", error);
   }
