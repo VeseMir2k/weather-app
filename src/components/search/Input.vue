@@ -32,17 +32,18 @@ const inputRef = ref(null);
 
 // ~ getWeather
 const getWeather = async () => {
+  weatherStore.inputValue = inputValue.value;
   try {
     const placeData = weatherStore.placeData?.geometry?.location;
 
     if (placeData) {
       const lat = placeData.lat();
       const lng = placeData.lng();
-      console.log(lat, lng);
       await weatherStore.fetchWeather({ lat, lng }, null);
     } else {
       await weatherStore.fetchWeather(null, inputValue.value);
     }
+
     inputRef.value.blur();
     inputValue.value = "";
   } catch (error) {

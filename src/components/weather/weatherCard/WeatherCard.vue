@@ -4,7 +4,11 @@
       <Header />
       <Map />
       <Main />
-      <WeatherForecast />
+      <LoaderCard v-if="loadingForecast" />
+      <ErrorCard :error="errorForecast" v-if="errorForecast" />
+      <WeatherForecast
+        v-if="weatherForecastData && !loadingForecast && !errorForecast"
+      />
     </v-container>
   </v-card>
 </template>
@@ -15,8 +19,8 @@ import Header from "./header/Header.vue";
 import Map from "./map/Map.vue";
 import Main from "./main/Main.vue";
 import WeatherForecast from "./weatherForecast/WeatherForecast.vue";
-import { onMounted } from "vue";
 import { useWeatherStore } from "@/stores/app";
+import { computed } from "vue";
 
 // ~ stores
 const weatherStore = useWeatherStore();
@@ -30,6 +34,8 @@ const getWeatherForecast = async () => {
       const lat = placeData.lat();
       const lng = placeData.lng();
       await weatherStore.fetchWeatherForecast({ lat, lng }, null);
+    } else {
+      await weatherStore.fetchWeatherForecast(null, weatherStore.inputValue);
     }
   } catch (error) {
     console.error("Failed to fetch weather data:", error);
@@ -38,8 +44,15 @@ const getWeatherForecast = async () => {
   }
 };
 
+// ~ computed
+const weatherForecastData = computed(() => weatherStore.weatherForecastData);
+const loadingForecast = computed(() => weatherStore.loadingForecast);
+const errorForecast = computed(() => weatherStore.errorForecast);
+
 onMounted(async () => {
+  console.log("weatherForecast");
   await getWeatherForecast();
+  console.log(weatherStore.weatherForecastData);
 });
 </script>
 

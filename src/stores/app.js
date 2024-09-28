@@ -14,6 +14,8 @@ export const useWeatherStore = defineStore("weather", {
     error: null,
     // ~ weather forecast
     weatherForecastData: null,
+    loadingForecast: false,
+    errorForecast: null,
   }),
 
   actions: {
@@ -30,13 +32,14 @@ export const useWeatherStore = defineStore("weather", {
     },
 
     async fetchWeatherForecast(coord, city) {
+      this.loadingForecast = true;
+      this.errorForecast = null;
       try {
-        console.log(coord);
         this.weatherForecastData = await fetchWeatherForecastData(coord, city);
       } catch (error) {
-        console.log(error);
+        this.errorForecast = error.message;
       } finally {
-        console.log("git git");
+        this.loadingForecast = false;
       }
     },
   },
