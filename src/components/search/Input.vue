@@ -32,21 +32,17 @@ const inputRef = ref(null);
 
 // ~ getWeather
 const getWeather = async () => {
-  if (!inputValue.value.trim()) {
-    console.log("Please enter a valid city name.");
-    return;
-  }
-
   try {
-    if (weatherStore.placeData?.geometry) {
-      await weatherStore.fetchWeatherCoord(
-        weatherStore.placeData.geometry.location.lat(),
-        weatherStore.placeData.geometry.location.lng()
-      );
-    } else {
-      await weatherStore.fetchWeatherCity(inputValue.value);
-    }
+    const placeData = weatherStore.placeData?.geometry?.location;
 
+    if (placeData) {
+      const lat = placeData.lat();
+      const lng = placeData.lng();
+      console.log(lat, lng);
+      await weatherStore.fetchWeather({ lat, lng }, null);
+    } else {
+      await weatherStore.fetchWeather(null, inputValue.value);
+    }
     inputRef.value.blur();
     inputValue.value = "";
   } catch (error) {

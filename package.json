@@ -12,9 +12,11 @@
     "@mdi/font": "7.4.47",
     "@mui/icons-material": "^6.1.0",
     "axios": "^1.7.7",
+    "chart.js": "^4.4.4",
     "core-js": "^3.37.1",
     "roboto-fontface": "*",
     "vue": "^3.4.31",
+    "vue-chartjs": "^5.3.1",
     "vue3-google-map": "^0.21.0",
     "vuetify": "^3.6.11"
   },

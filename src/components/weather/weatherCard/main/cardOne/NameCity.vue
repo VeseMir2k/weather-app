@@ -1,6 +1,6 @@
 <template>
   <h1 class="text-h3 font-weight-bold">
-    {{ placeData ? city : weatherData.name }}
+    {{ weatherData.name }}
   </h1>
 </template>
 
@@ -12,9 +12,6 @@ const props = defineProps({
   },
   placeData: {
     type: Object,
-  },
-  city: {
-    type: String,
   },
 });
 </script>

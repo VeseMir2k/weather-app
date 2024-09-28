@@ -1,10 +1,6 @@
 <template>
   <v-col>
-    <NameCity
-      :weather-data="weatherData"
-      :place-data="placeData"
-      :city="city"
-    />
+    <NameCity :weather-data="weatherData" :place-data="placeData" />
     <IconWeather :weather-data="weatherData" />
     <SunRiseSet :weather-data="weatherData" />
     <div class="d-flex ga-3">
@@ -27,5 +23,4 @@ import FeelsLike from "./FeelsLike.vue";
 const weatherStore = useWeatherStore();
 const weatherData = weatherStore.weatherData;
 const placeData = weatherStore.placeData;
-const city = weatherStore.city;
 </script>
