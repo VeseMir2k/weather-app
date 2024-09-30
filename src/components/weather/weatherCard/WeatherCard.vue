@@ -21,6 +21,7 @@ import Main from "./main/Main.vue";
 import WeatherForecast from "./weatherForecast/WeatherForecast.vue";
 import { useWeatherStore } from "@/stores/app";
 import { computed } from "vue";
+import { timestampToDate } from "@/use/useDate";
 
 // ~ stores
 const weatherStore = useWeatherStore();
@@ -49,21 +50,11 @@ const weatherForecastData = computed(() => weatherStore.weatherForecastData);
 const loadingForecast = computed(() => weatherStore.loadingForecast);
 const errorForecast = computed(() => weatherStore.errorForecast);
 
-// ~ timestampToDate
-const timestampToDate = (timestamp) => {
-  const date = new Date(timestamp * 1000);
-  const day = date.getDate();
-  const month = date.getMonth() - 1;
-  const year = date.getFullYear();
-
-  return `${year}-${month}-${day}`;
-};
-
 // ~ getDates
 const getDates = () => {
   const { list } = weatherStore.weatherForecastData;
   const dates = [];
-  list.forEach((item, index) => {
+  list.forEach((item) => {
     if (
       dates.length === 0 ||
       timestampToDate(item.dt) !== dates[dates.length - 1]
