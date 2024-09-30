@@ -56,12 +56,11 @@ const timestampToDate = (timestamp) => {
   const month = date.getMonth() - 1;
   const year = date.getFullYear();
 
-  return `${day}-${month}-${year}`;
+  return `${year}-${month}-${day}`;
 };
 
 // ~ getDates
 const getDates = () => {
-  console.log(weatherStore.weatherForecastData);
   const { list } = weatherStore.weatherForecastData;
   const dates = [];
   list.forEach((item, index) => {
@@ -72,7 +71,9 @@ const getDates = () => {
       dates.push(timestampToDate(item.dt));
     }
   });
-  console.log(dates);
+
+  weatherStore.dates = dates;
+  console.log(weatherStore.dates);
 };
 
 onMounted(async () => {
