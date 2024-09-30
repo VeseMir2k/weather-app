@@ -49,14 +49,27 @@ const weatherForecastData = computed(() => weatherStore.weatherForecastData);
 const loadingForecast = computed(() => weatherStore.loadingForecast);
 const errorForecast = computed(() => weatherStore.errorForecast);
 
+// ~ timestampToDate
+const timestampToDate = (timestamp) => {
+  const date = new Date(timestamp * 1000);
+  const day = date.getDate();
+  const month = date.getMonth() - 1;
+  const year = date.getFullYear();
+
+  return `${day}-${month}-${year}`;
+};
+
 // ~ getDates
 const getDates = () => {
   console.log(weatherStore.weatherForecastData);
   const { list } = weatherStore.weatherForecastData;
   const dates = [];
   list.forEach((item, index) => {
-    if (dates.length === 0 || item.dt !== dates.length - 1) {
-      dates.push(item.dt);
+    if (
+      dates.length === 0 ||
+      timestampToDate(item.dt) !== dates[dates.length - 1]
+    ) {
+      dates.push(timestampToDate(item.dt));
     }
   });
   console.log(dates);
