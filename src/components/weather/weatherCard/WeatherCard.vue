@@ -49,10 +49,22 @@ const weatherForecastData = computed(() => weatherStore.weatherForecastData);
 const loadingForecast = computed(() => weatherStore.loadingForecast);
 const errorForecast = computed(() => weatherStore.errorForecast);
 
-onMounted(async () => {
-  console.log("weatherForecast");
-  await getWeatherForecast();
+// ~ getDates
+const getDates = () => {
   console.log(weatherStore.weatherForecastData);
+  const { list } = weatherStore.weatherForecastData;
+  const dates = [];
+  list.forEach((item, index) => {
+    if (dates.length === 0 || item.dt !== dates.length - 1) {
+      dates.push(item.dt);
+    }
+  });
+  console.log(dates);
+};
+
+onMounted(async () => {
+  await getWeatherForecast();
+  getDates();
 });
 </script>
 
