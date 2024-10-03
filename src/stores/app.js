@@ -16,8 +16,11 @@ export const useWeatherStore = defineStore("weather", {
     weatherForecastData: null,
     loadingForecast: false,
     errorForecast: null,
-    // ~ ----------------------
-    dates: [],
+    weatherForecastDayData: [],
+    temps: [],
+    hours: [],
+    // ~ dates
+    dates: null,
   }),
 
   actions: {

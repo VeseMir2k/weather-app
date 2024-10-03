@@ -7,7 +7,12 @@
       <LoaderCard v-if="loadingForecast" />
       <ErrorCard :error="errorForecast" v-if="errorForecast" />
       <WeatherForecast
-        v-if="weatherForecastData && !loadingForecast && !errorForecast"
+        v-if="
+          weatherForecastData &&
+          !loadingForecast &&
+          !errorForecast &&
+          weatherStore.dates
+        "
       />
     </v-container>
   </v-card>
@@ -64,12 +69,12 @@ const getDates = () => {
   });
 
   weatherStore.dates = dates;
-  console.log(weatherStore.dates);
 };
 
 onMounted(async () => {
   await getWeatherForecast();
   getDates();
+  console.log("weatherCard");
 });
 </script>
 
