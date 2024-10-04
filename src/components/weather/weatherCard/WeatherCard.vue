@@ -63,27 +63,9 @@ const isLoadingForecastWeather = computed(
 );
 const forecastWeatherError = computed(() => weatherStore.forecastWeatherError);
 
-// ~ getDates
-const getDates = () => {
-  const { list } = weatherStore.forecastWeatherData;
-  const forecastWeatherDates = [];
-  list.forEach((item) => {
-    if (
-      forecastWeatherDates.length === 0 ||
-      timestampToDate(item.dt) !==
-        forecastWeatherDates[forecastWeatherDates.length - 1]
-    ) {
-      forecastWeatherDates.push(timestampToDate(item.dt));
-    }
-  });
-
-  weatherStore.forecastWeatherDates = forecastWeatherDates;
-};
-
 onMounted(async () => {
   await getWeatherForecast();
-  getDates();
-  console.log("weatherCard");
+  weatherStore.getDates();
 });
 </script>
 

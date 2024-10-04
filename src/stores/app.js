@@ -75,5 +75,21 @@ export const useWeatherStore = defineStore("weather", {
       });
       this.dailyForecastWeatherData = dailyForecastWeatherData;
     },
+    // ~ getDates
+    getDates() {
+      const { list } = this.forecastWeatherData;
+      const forecastWeatherDates = [];
+      list.forEach((item) => {
+        if (
+          forecastWeatherDates.length === 0 ||
+          timestampToDate(item.dt) !==
+            forecastWeatherDates[forecastWeatherDates.length - 1]
+        ) {
+          forecastWeatherDates.push(timestampToDate(item.dt));
+        }
+      });
+
+      this.forecastWeatherDates = forecastWeatherDates;
+    },
   },
 });
