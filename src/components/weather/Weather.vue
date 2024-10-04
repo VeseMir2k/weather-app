@@ -1,9 +1,6 @@
 <template>
   <LoaderCard v-if="isLoadingCurrentWeather" />
-  <ErrorCard
-    :currentWeatherError="currentWeatherError"
-    v-if="currentWeatherError"
-  />
+  <ErrorCard :error="currentWeatherError" v-if="currentWeatherError" />
   <WeatherCard
     v-if="
       currentWeatherData && !isLoadingCurrentWeather && !currentWeatherError

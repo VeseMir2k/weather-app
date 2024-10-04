@@ -42,13 +42,13 @@ const chartRef = ref(null);
 
 // ~ charData
 const chartData = ref({
-  labels: weatherStore.hours,
+  labels: weatherStore.forecastWeatherHours,
   datasets: [
     {
       label: "Temperatury",
       backgroundColor: "#f87979",
       borderColor: "rgba(75, 192, 192, 1)",
-      data: weatherStore.temps,
+      data: weatherStore.forecastWeatherTemperatures,
     },
   ],
 });
@@ -61,11 +61,15 @@ const options = ref({
 
 // ~ chart data update
 watch(
-  [() => weatherStore.hours, () => weatherStore.temps],
-  ([newHours, newTemps]) => {
+  [
+    () => weatherStore.forecastWeatherHours,
+    () => weatherStore.forecastWeatherTemperatures,
+  ],
+  ([newForecastWeatherHours, newForecastWeatherTemperatures]) => {
     if (chartRef.value?.chart) {
-      chartRef.value.chart.data.labels = newHours;
-      chartRef.value.chart.data.datasets[0].data = newTemps;
+      chartRef.value.chart.data.labels = newForecastWeatherHours;
+      chartRef.value.chart.data.datasets[0].data =
+        newForecastWeatherTemperatures;
       chartRef.value.chart.update();
     }
   }

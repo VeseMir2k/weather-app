@@ -3,7 +3,7 @@ import {
   fetchCurrentWeatherData,
   fetchForecastWeatherData,
 } from "@/use/useWeather";
-import { getTime } from "@/use/useDate";
+import { getTime, timestampToDate } from "@/use/useDate";
 
 export const useWeatherStore = defineStore("weather", {
   state: () => ({
@@ -68,11 +68,12 @@ export const useWeatherStore = defineStore("weather", {
     },
     // ~ getDailyWeatherForecast
     getDailyForecastWeather(dt) {
-      const forecastWeatherDates = [];
+      const dailyForecastWeatherData = [];
       this.forecastWeatherData.list.forEach((item) => {
-        if (dt === timestampToDate(item.dt)) forecastWeatherDates.push(item);
+        if (dt === timestampToDate(item.dt))
+          dailyForecastWeatherData.push(item);
       });
-      this.forecastWeatherDates = forecastWeatherDates;
+      this.dailyForecastWeatherData = dailyForecastWeatherData;
     },
   },
 });

@@ -2,11 +2,11 @@
   <div>
     <h1>Forecast Weather</h1>
     <div class="d-flex justify-space-between my-3">
-      <v-btn @click="handleButton(item)" v-for="item in dates">
+      <v-btn @click="handleButton(item)" v-for="item in forecastWeatherDates">
         {{ item }}
       </v-btn>
     </div>
-    <Chart v-if="weatherStore.weatherForecastDayData.length" />
+    <Chart v-if="weatherStore.dailyForecastWeatherData.length" />
   </div>
 </template>
 
@@ -14,23 +14,22 @@
 // ~ imports
 import { useWeatherStore } from "@/stores/app";
 import { computed, onMounted } from "vue";
-import { timestampToDate } from "@/use/useDate";
 import Chart from "./Chart/Chart.vue";
 
 // ~ stores
 const weatherStore = useWeatherStore();
 
 // ~ computed
-const dates = computed(() => weatherStore.dates);
+const forecastWeatherDates = computed(() => weatherStore.forecastWeatherDates);
 
 // ~ handleButton
 const handleButton = (dt) => {
-  getWeatherForecastDay(dt);
-  weatherStore.extractWeatherForecastDayData();
+  weatherStore.getDailyForecastWeather(dt);
+  weatherStore.extractDailyForecastWeather();
 };
 
 onMounted(() => {
-  getWeatherForecastDay(dates.value[0]);
-  weatherStore.extractWeatherForecastDayData();
+  weatherStore.getDailyForecastWeather(forecastWeatherDates.value[0]);
+  weatherStore.extractDailyForecastWeather();
 });
 </script>

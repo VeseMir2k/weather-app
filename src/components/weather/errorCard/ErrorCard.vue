@@ -3,7 +3,7 @@
     <v-container>
       <v-row>
         <v-col>
-          <p class="text-center">{{ currentWeatherError }}</p>
+          <p class="text-center">{{ error }}</p>
         </v-col>
       </v-row>
     </v-container>
@@ -12,7 +12,7 @@
 
 <script setup>
 const props = defineProps({
-  currentWeatherError: {
+  error: {
     type: String,
   },
 });

@@ -4,14 +4,14 @@
       <Header />
       <Map />
       <Main />
-      <LoaderCard v-if="loadingForecast" />
-      <ErrorCard :error="errorForecast" v-if="errorForecast" />
+      <LoaderCard v-if="isLoadingForecastWeather" />
+      <ErrorCard :error="forecastWeatherError" v-if="forecastWeatherError" />
       <WeatherForecast
         v-if="
-          weatherForecastData &&
-          !loadingForecast &&
-          !errorForecast &&
-          weatherStore.dates
+          forecastWeatherData &&
+          !isLoadingForecastWeather &&
+          !forecastWeatherError &&
+          weatherStore.forecastWeatherDates
         "
       />
     </v-container>
@@ -33,42 +33,51 @@ const weatherStore = useWeatherStore();
 
 // ~ getWeatherForecast
 const getWeatherForecast = async () => {
-  const placeData = weatherStore.placeData?.geometry?.location;
+  const autocompletePlaceData =
+    weatherStore.autocompletePlaceData?.geometry?.location;
 
   try {
-    if (placeData) {
-      const lat = placeData.lat();
-      const lng = placeData.lng();
-      await weatherStore.fetchWeatherForecast({ lat, lng }, null);
+    if (autocompletePlaceData) {
+      const lat = autocompletePlaceData.lat();
+      const lng = autocompletePlaceData.lng();
+      await weatherStore.fetchForecastWeather({ lat, lng }, null);
     } else {
-      await weatherStore.fetchWeatherForecast(null, weatherStore.inputValue);
+      await weatherStore.fetchForecastWeather(
+        null,
+        weatherStore.searchInputValue
+      );
     }
+
+    console.log(weatherStore.forecastWeatherData);
   } catch (error) {
     console.error("Failed to fetch weather data:", error);
   } finally {
-    weatherStore.placeData = null;
+    weatherStore.autocompletePlaceData = null;
   }
 };
 
 // ~ computed
-const weatherForecastData = computed(() => weatherStore.weatherForecastData);
-const loadingForecast = computed(() => weatherStore.loadingForecast);
-const errorForecast = computed(() => weatherStore.errorForecast);
+const forecastWeatherData = computed(() => weatherStore.forecastWeatherData);
+const isLoadingForecastWeather = computed(
+  () => weatherStore.isLoadingForecastWeather
+);
+const forecastWeatherError = computed(() => weatherStore.forecastWeatherError);
 
 // ~ getDates
 const getDates = () => {
-  const { list } = weatherStore.weatherForecastData;
-  const dates = [];
+  const { list } = weatherStore.forecastWeatherData;
+  const forecastWeatherDates = [];
   list.forEach((item) => {
     if (
-      dates.length === 0 ||
-      timestampToDate(item.dt) !== dates[dates.length - 1]
+      forecastWeatherDates.length === 0 ||
+      timestampToDate(item.dt) !==
+        forecastWeatherDates[forecastWeatherDates.length - 1]
     ) {
-      dates.push(timestampToDate(item.dt));
+      forecastWeatherDates.push(timestampToDate(item.dt));
     }
   });
 
-  weatherStore.dates = dates;
+  weatherStore.forecastWeatherDates = forecastWeatherDates;
 };
 
 onMounted(async () => {
