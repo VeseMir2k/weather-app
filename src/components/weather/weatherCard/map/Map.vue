@@ -14,11 +14,11 @@ import { styles } from "./stylesMap";
 
 // ~ stores
 const weatherStore = useWeatherStore();
-const weatherData = weatherStore.weatherData;
+const currentWeatherData = weatherStore.currentWeatherData;
 
 // ~ coord
-const coordLat = weatherData.coord.lat;
-const coordLng = weatherData.coord.lon;
+const coordLat = currentWeatherData.coord.lat;
+const coordLng = currentWeatherData.coord.lon;
 
 // ~ optionMap
 const optionsMap = {

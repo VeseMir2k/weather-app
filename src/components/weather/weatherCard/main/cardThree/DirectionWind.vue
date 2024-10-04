@@ -2,7 +2,7 @@
   <div class="d-flex ga-2">
     <v-icon icon="mdi-windsock" size="large"></v-icon>
     <p class="font-weight-bold">
-      {{ windDeg }} - {{ weatherDate.wind.deg }}&deg;
+      {{ windDeg }} - {{ currentWeatherData.wind.deg }}&deg;
     </p>
   </div>
 </template>
@@ -13,7 +13,7 @@ import { onMounted } from "vue";
 const windDeg = ref("");
 
 const props = defineProps({
-  weatherDate: {
+  currentWeatherData: {
     type: Object,
   },
 });
@@ -30,6 +30,6 @@ const getWindDirection = (deg) => {
 };
 
 onMounted(() => {
-  windDeg.value = getWindDirection(props.weatherDate.wind.deg);
+  windDeg.value = getWindDirection(props.currentWeatherData.wind.deg);
 });
 </script>

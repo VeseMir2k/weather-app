@@ -1,12 +1,12 @@
 <template>
   <p class="text-h1 font-weight-bold">
-    {{ Math.floor(weatherData.main.temp) }}&deg;
+    {{ Math.floor(currentWeatherData.main.temp) }}&deg;
   </p>
 </template>
 
 <script setup>
 const props = defineProps({
-  weatherData: {
+  currentWeatherData: {
     type: Object,
   },
 });

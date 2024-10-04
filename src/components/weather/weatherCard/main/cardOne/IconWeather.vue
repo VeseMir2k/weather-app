@@ -1,18 +1,18 @@
 <template>
   <div class="d-flex align-center">
     <img
-      :src="`https://openweathermap.org/img/wn/${weatherData.weather[0].icon}.png`"
+      :src="`https://openweathermap.org/img/wn/${currentWeatherData.weather[0].icon}.png`"
       alt="icon weather"
     />
     <p class="font-weight-bold text-uppercase text-body-2">
-      {{ weatherData.weather[0].description }}
+      {{ currentWeatherData.weather[0].description }}
     </p>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
-  weatherData: {
+  currentWeatherData: {
     type: Object,
   },
 });

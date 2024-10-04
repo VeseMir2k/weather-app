@@ -1,6 +1,6 @@
 <template>
   <v-col class="d-flex justify-center align-center">
-    <Temperature :weather-data="weatherData" />
+    <Temperature :currentWeatherData="currentWeatherData" />
   </v-col>
 </template>
 
@@ -11,5 +11,5 @@ import Temperature from "./Temperature.vue";
 
 // ~ stores
 const weatherStore = useWeatherStore();
-const weatherData = weatherStore.weatherData;
+const currentWeatherData = weatherStore.currentWeatherData;
 </script>

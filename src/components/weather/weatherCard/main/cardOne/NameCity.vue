@@ -1,16 +1,16 @@
 <template>
   <h1 class="text-h3 font-weight-bold">
-    {{ weatherData.name }}
+    {{ currentWeatherData.name }}
   </h1>
 </template>
 
 <script setup>
 // ~ props
 const props = defineProps({
-  weatherData: {
+  currentWeatherData: {
     type: Object,
   },
-  placeData: {
+  autocompletePlaceData: {
     type: Object,
   },
 });

@@ -4,9 +4,9 @@
       id="autocomplete"
       class="search-input__input"
       type="text"
-      v-model="inputValue"
-      @keydown.enter.prevent="getWeather"
-      ref="inputRef"
+      v-model="searchInputValue"
+      @keydown.enter.prevent="getCurrentWeather"
+      ref="searchInputRef"
     />
     <span
       @click="getWeather"
@@ -27,25 +27,26 @@ import { useWeatherStore } from "@/stores/app";
 const weatherStore = useWeatherStore();
 
 // ~ refs
-const inputValue = ref("");
-const inputRef = ref(null);
+const searchInputValue = ref("");
+const searchInputRef = ref(null);
 
 // ~ getWeather
-const getWeather = async () => {
-  weatherStore.inputValue = inputValue.value;
+const getCurrentWeather = async () => {
+  weatherStore.searchInputValue = searchInputValue.value;
   try {
-    const placeData = weatherStore.placeData?.geometry?.location;
+    const autocompletePlaceData =
+      weatherStore.autocompletePlaceData?.geometry?.location;
 
-    if (placeData) {
-      const lat = placeData.lat();
-      const lng = placeData.lng();
-      await weatherStore.fetchWeather({ lat, lng }, null);
+    if (autocompletePlaceData) {
+      const lat = autocompletePlaceData.lat();
+      const lng = autocompletePlaceData.lng();
+      await weatherStore.fetchCurrentWeather({ lat, lng }, null);
     } else {
-      await weatherStore.fetchWeather(null, inputValue.value);
+      await weatherStore.fetchCurrentWeather(null, searchInputValue.value);
     }
 
-    inputRef.value.blur();
-    inputValue.value = "";
+    searchInputRef.value.blur();
+    searchInputValue.value = "";
   } catch (error) {
     console.error("Failed to fetch weather data:", error);
   }

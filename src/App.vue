@@ -11,9 +11,9 @@
     <v-row justify="center">
       <v-col cols="10">
         <Weather
-          :weatherData="weatherData"
-          :loading="loading"
-          :error="error" /></v-col
+          :currentWeatherData="currentWeatherData"
+          :isLoadingCurrentWeather="isLoadingCurrentWeather"
+          :currentWeatherError="currentWeatherError" /></v-col
     ></v-row>
   </v-container>
 </template>
@@ -35,7 +35,9 @@ useGoogleAutocomplete(weatherStore, "autocomplete", {
 });
 
 // ~ computed
-const weatherData = computed(() => weatherStore.weatherData);
-const loading = computed(() => weatherStore.loading);
-const error = computed(() => weatherStore.error);
+const currentWeatherData = computed(() => weatherStore.currentWeatherData);
+const isLoadingCurrentWeather = computed(
+  () => weatherStore.isLoadingCurrentWeather
+);
+const currentWeatherError = computed(() => weatherStore.currentWeatherError);
 </script>

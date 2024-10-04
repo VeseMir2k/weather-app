@@ -1,13 +1,13 @@
 <template>
   <div class="d-flex align-center ga-1">
     <v-icon icon="mdi-water-percent" size="large"></v-icon>
-    <p class="font-weight-bold">{{ weatherData.main.humidity }}%</p>
+    <p class="font-weight-bold">{{ currentWeatherData.main.humidity }}%</p>
   </div>
 </template>
 
 <script setup>
 const props = defineProps({
-  weatherData: {
+  currentWeatherData: {
     type: Object,
   },
 });

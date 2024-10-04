@@ -8,7 +8,7 @@
       <Clock />
     </v-col>
     <v-col class="d-flex justify-end">
-      <Coord :weather-data="weatherData" />
+      <Coord :currentWeatherData="currentWeatherData" />
     </v-col>
   </v-row>
 </template>
@@ -23,5 +23,5 @@ import Coord from "./Coord.vue";
 
 // ~ stores
 const weatherStore = useWeatherStore();
-const weatherData = weatherStore.weatherData;
+const currentWeatherData = weatherStore.currentWeatherData;
 </script>

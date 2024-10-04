@@ -1,7 +1,14 @@
 <template>
-  <LoaderCard v-if="loading" />
-  <ErrorCard :error="error" v-if="error" />
-  <WeatherCard v-if="weatherData && !loading && !error" />
+  <LoaderCard v-if="isLoadingCurrentWeather" />
+  <ErrorCard
+    :currentWeatherError="currentWeatherError"
+    v-if="currentWeatherError"
+  />
+  <WeatherCard
+    v-if="
+      currentWeatherData && !isLoadingCurrentWeather && !currentWeatherError
+    "
+  />
 </template>
 
 <script setup>
@@ -12,13 +19,13 @@ import ErrorCard from "./errorCard/ErrorCard.vue";
 
 // ~ props
 const props = defineProps({
-  weatherData: {
+  currentWeatherData: {
     type: Object,
   },
-  loading: {
+  isLoadingCurrentWeather: {
     type: Boolean,
   },
-  error: {
+  currentWeatherError: {
     type: String,
   },
 });

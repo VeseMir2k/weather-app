@@ -1,51 +1,78 @@
 import { defineStore } from "pinia";
-import { fetchWeatherData, fetchWeatherForecastData } from "@/use/useWeather";
+import {
+  fetchCurrentWeatherData,
+  fetchForecastWeatherData,
+} from "@/use/useWeather";
+import { getTime } from "@/use/useDate";
 
 export const useWeatherStore = defineStore("weather", {
   state: () => ({
-    // ~ input value
-    inputValue: "",
-    // ~ autocomplete place
-    placeData: null,
+    // ~ searchInputValue
+    searchInputValue: "",
+    // ~ autocompletePlaceData
+    autocompletePlaceData: null,
     cityName: "",
-    // ~ weather
-    weatherData: null,
-    loading: false,
-    error: null,
-    // ~ weather forecast
-    weatherForecastData: null,
-    loadingForecast: false,
-    errorForecast: null,
-    weatherForecastDayData: [],
-    temps: [],
-    hours: [],
-    // ~ dates
-    dates: null,
+    // ~ current weather
+    currentWeatherData: null,
+    isLoadingCurrentWeather: false,
+    currentWeatherError: null,
+    // ~ forecast weather
+    forecastWeatherData: null,
+    isLoadingForecastWeather: false,
+    forecastWeatherError: null,
+    // ~ daily forecast weather
+    dailyForecastWeatherData: [],
+    forecastWeatherTemperatures: [],
+    forecastWeatherHours: [],
+    // ~ forecast weather dates
+    forecastWeatherDates: null,
   }),
 
   actions: {
-    async fetchWeather(coord, city) {
-      this.loading = true;
-      this.error = null;
+    // ~ fetchCurrentWeather
+    async fetchCurrentWeather(coord, city) {
+      this.isLoadingCurrentWeather = true;
+      this.currentWeatherError = null;
       try {
-        this.weatherData = await fetchWeatherData(coord, city);
+        this.currentWeatherData = await fetchCurrentWeatherData(coord, city);
       } catch (error) {
-        this.error = error.message;
+        this.currentWeatherError = error.message;
       } finally {
-        this.loading = false;
+        this.isLoadingCurrentWeather = false;
       }
     },
-
-    async fetchWeatherForecast(coord, city) {
-      this.loadingForecast = true;
-      this.errorForecast = null;
+    // ~ fetchForecastWeather
+    async fetchForecastWeather(coord, city) {
+      this.isLoadingForecastWeather = true;
+      this.forecastWeatherError = null;
       try {
-        this.weatherForecastData = await fetchWeatherForecastData(coord, city);
+        this.forecastWeatherData = await fetchForecastWeatherData(coord, city);
       } catch (error) {
-        this.errorForecast = error.message;
+        this.forecastWeatherError = error.message;
       } finally {
-        this.loadingForecast = false;
+        this.isLoadingForecastWeather = false;
       }
+    },
+    // ~ extractDailyWeatherForecast
+    extractDailyForecastWeather() {
+      const hours = [];
+      const temps = [];
+
+      this.dailyForecastWeatherData.forEach((item) => {
+        hours.push(getTime(item.dt));
+        temps.push(item.main.temp);
+      });
+
+      this.forecastWeatherHours = [...hours];
+      this.forecastWeatherTemperatures = [...temps];
+    },
+    // ~ getDailyWeatherForecast
+    getDailyForecastWeather(dt) {
+      const forecastWeatherDates = [];
+      this.forecastWeatherData.list.forEach((item) => {
+        if (dt === timestampToDate(item.dt)) forecastWeatherDates.push(item);
+      });
+      this.forecastWeatherDates = forecastWeatherDates;
     },
   },
 });

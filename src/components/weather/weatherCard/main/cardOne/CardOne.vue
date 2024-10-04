@@ -1,11 +1,14 @@
 <template>
   <v-col>
-    <NameCity :weather-data="weatherData" :place-data="placeData" />
-    <IconWeather :weather-data="weatherData" />
-    <SunRiseSet :weather-data="weatherData" />
+    <NameCity
+      :currentWeatherData="currentWeatherData"
+      :autocompletePlaceData="autocompletePlaceData"
+    />
+    <IconWeather :currentWeatherData="currentWeatherData" />
+    <SunRiseSet :currentWeatherData="currentWeatherData" />
     <div class="d-flex ga-3">
-      <Humidity :weather-data="weatherData" />
-      <FeelsLike :weather-data="weatherData" />
+      <Humidity :currentWeatherData="currentWeatherData" />
+      <FeelsLike :currentWeatherData="currentWeatherData" />
     </div>
   </v-col>
 </template>
@@ -21,6 +24,6 @@ import FeelsLike from "./FeelsLike.vue";
 
 // ~ stores
 const weatherStore = useWeatherStore();
-const weatherData = weatherStore.weatherData;
-const placeData = weatherStore.placeData;
+const currentWeatherData = weatherStore.currentWeatherData;
+const autocompletePlaceData = weatherStore.autocompletePlaceData;
 </script>

@@ -8,6 +8,7 @@
 </template>
 
 <script setup>
+// ~ imports
 import { ref, watch } from "vue";
 import { useWeatherStore } from "@/stores/app";
 import {
@@ -22,6 +23,7 @@ import {
 } from "chart.js";
 import { Line } from "vue-chartjs";
 
+// ~ chartjs register
 ChartJS.register(
   CategoryScale,
   LinearScale,
@@ -32,10 +34,13 @@ ChartJS.register(
   Legend
 );
 
+// ~ stores
 const weatherStore = useWeatherStore();
+
+// ~ refs
 const chartRef = ref(null);
 
-// Dane wykresu jako ref (dynamiczne)
+// ~ charData
 const chartData = ref({
   labels: weatherStore.hours,
   datasets: [
@@ -48,20 +53,20 @@ const chartData = ref({
   ],
 });
 
-// Opcje wykresu
+// ~ options chart
 const options = ref({
   responsive: false,
   maintainAspectRatio: false,
 });
 
-// Aktualizuj dane wykresu, gdy zmieniają się wartości w store
+// ~ chart data update
 watch(
   [() => weatherStore.hours, () => weatherStore.temps],
   ([newHours, newTemps]) => {
     if (chartRef.value?.chart) {
       chartRef.value.chart.data.labels = newHours;
       chartRef.value.chart.data.datasets[0].data = newTemps;
-      chartRef.value.chart.update(); // Aktualizacja wykresu
+      chartRef.value.chart.update();
     }
   }
 );

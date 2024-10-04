@@ -23,45 +23,14 @@ const weatherStore = useWeatherStore();
 // ~ computed
 const dates = computed(() => weatherStore.dates);
 
-// ~ getTime
-const getTime = (dt) => {
-  const date = new Date(dt * 1000);
-  const hour = date.getHours();
-  const minute = date.getMinutes();
-  return `${hour}:${minute}`;
-};
-
-// ~ getForecastDayData
-const getWeatherForecastDayData = () => {
-  const hours = [];
-  const temps = [];
-
-  weatherStore.weatherForecastDayData.forEach((item) => {
-    hours.push(getTime(item.dt));
-    temps.push(item.main.temp);
-  });
-
-  weatherStore.hours = [...hours];
-  weatherStore.temps = [...temps];
-};
-
-// ~ getWeatherForecastDay
-const getWeatherForecastDay = (dt) => {
-  const forecastDate = [];
-  weatherStore.weatherForecastData.list.forEach((item) => {
-    if (dt === timestampToDate(item.dt)) forecastDate.push(item);
-  });
-  weatherStore.weatherForecastDayData = forecastDate;
-};
-
 // ~ handleButton
 const handleButton = (dt) => {
   getWeatherForecastDay(dt);
-  getWeatherForecastDayData();
+  weatherStore.extractWeatherForecastDayData();
 };
 
 onMounted(() => {
   getWeatherForecastDay(dates.value[0]);
-  getWeatherForecastDayData();
+  weatherStore.extractWeatherForecastDayData();
 });
 </script>

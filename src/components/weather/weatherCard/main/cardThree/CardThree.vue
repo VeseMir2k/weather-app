@@ -1,10 +1,10 @@
 <template>
   <v-col>
-    <DirectionWind :weather-date="weatherData" />
-    <SpeedWind :weather-date="weatherData" />
-    <GustWind :weather-date="weatherData" />
-    <Visibility :weather-data="weatherData" />
-    <Pressure :weather-data="weatherData" />
+    <DirectionWind :currentWeatherData="currentWeatherData" />
+    <SpeedWind :currentWeatherData="currentWeatherData" />
+    <GustWind :currentWeatherData="currentWeatherData" />
+    <Visibility :currentWeatherData="currentWeatherData" />
+    <Pressure :currentWeatherData="currentWeatherData" />
   </v-col>
 </template>
 
@@ -19,5 +19,5 @@ import Pressure from "./Pressure.vue";
 
 // ~ stores
 const weatherStore = useWeatherStore();
-const weatherData = weatherStore.weatherData;
+const currentWeatherData = weatherStore.currentWeatherData;
 </script>

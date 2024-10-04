@@ -26,7 +26,7 @@ export function useGoogleAutocomplete(weatherStore, inputId, options = {}) {
 
         autocomplete.value.addListener("place_changed", () => {
           place.value = autocomplete.value.getPlace();
-          weatherStore.placeData = place.value;
+          weatherStore.autocompletePlaceData = place.value;
         });
       })
       .catch((error) => {

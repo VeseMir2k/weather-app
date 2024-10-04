@@ -12,8 +12,8 @@ export const fetchWeather = async (url) => {
   }
 };
 
-// ~ fetchWeatherForecastData
-export const fetchWeatherData = async (coord, city) => {
+// ~ fetchCurrentWeatherData
+export const fetchCurrentWeatherData = async (coord, city) => {
   const apiKey = import.meta.env.VITE_API_URL_OPENWEATHER;
   let url = "";
   if (coord && city) {
@@ -29,8 +29,8 @@ export const fetchWeatherData = async (coord, city) => {
   return await fetchWeather(url);
 };
 
-// ~ fetchWeatherForecastData
-export const fetchWeatherForecastData = async (coord, city) => {
+// ~ fetchForecastWeatherData
+export const fetchForecastWeatherData = async (coord, city) => {
   const apiKey = import.meta.env.VITE_API_URL_OPENWEATHER;
   let url = "";
   if (coord && city) {
